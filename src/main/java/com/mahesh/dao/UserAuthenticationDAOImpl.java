@@ -22,7 +22,7 @@ public class UserAuthenticationDAOImpl implements UserAuthenticationDAO {
 	}
 
 	@Override
-	public StudentAppUsers loginUser(StudentAppUsers user) {
+	public StudentAppUsers loginUser(StudentAppUsers user) throws Exception {
 
 		RowMapper<StudentAppUsers> rowMapper = new RowMapper<StudentAppUsers>() {
 
@@ -33,22 +33,10 @@ public class UserAuthenticationDAOImpl implements UserAuthenticationDAO {
 				user.setUserId(rs.getInt(1));
 				user.setUserRole(rs.getString(2));
 				user.setUsername(rs.getString(3));
-				user.setPassword(rs.getString(4));
+				user.setPassword(null);
 				return user;
 			}
 		};
-//		PreparedStatementSetter pss = new PreparedStatementSetter() {
-//			
-//			@Override
-//			public void setValues(PreparedStatement ps) throws SQLException {
-//
-//				ps.setString(0, user.getUsername());
-//				ps.setString(1, user.getPassword());
-//			}
-//		};
-//		jdbcTemplate.queryForObject(SQLConstants.SQL_STUDENT_APP_USERS_AUTH, rowMapper, pss);
-//		
-		
 		
 		return jdbcTemplate.queryForObject(SQLConstants.SQL_STUDENT_APP_USERS_AUTH, rowMapper, user.getUsername(),user.getPassword());
 		

@@ -31,20 +31,21 @@ public class UserAuthenticationController {
 	public ModelAndView userLogin(@RequestParam("username") String username,
 			@RequestParam("password") String password) {
 
-		StudentAppUsers user = new StudentAppUsers();
-
-		if ((username != null && username.trim().length() > 0) && (password != null && password.trim().length() > 0)) {
+		if (userService.checkUser(username, password)) {
+			StudentAppUsers user = new StudentAppUsers();
 
 			user.setUsername(username);
 			user.setPassword(password);
-			user = userService.loginUser(user);
-			
-			if (user != null && user.getUserRole() != null) {
+
+			if (userService.loginUser(user).getPassword() != null) {
+				targetPage = loginPage;
+				message = "Please provide valid username and password";
+			} else {
+				user = userService.loginUser(user);
+				message = "Welcome " + user.getUsername() + "!" + "This is your " + user.getUserRole();
 				if (user.getUserRole().equals("admin")) {
-					message = "Welcome " +user.getUsername()+ "!";
-						targetPage = adminPage;
+					targetPage = adminPage;
 				} else if (user.getUserRole().equals("student")) {
-					message = "Welcome " +user.getUsername()+ "!";
 					targetPage = studentPage;
 				}
 			}

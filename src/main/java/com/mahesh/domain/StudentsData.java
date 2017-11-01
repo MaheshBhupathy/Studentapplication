@@ -1,6 +1,9 @@
 package com.mahesh.domain;
 
-public class StudentsData {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class StudentsData implements Serializable {
 
 //	SQL> desc student_app_students;
 //	 Name                                      Null?    Type

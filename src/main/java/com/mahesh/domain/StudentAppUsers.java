@@ -1,6 +1,9 @@
 package com.mahesh.domain;
 
-public class StudentAppUsers {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class StudentAppUsers implements Serializable {
 	
 //	 			Name                                      Null?    Type
 //			 ----------------------------------------- -------- --------------

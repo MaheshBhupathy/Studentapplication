@@ -18,7 +18,17 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
 
 	@Override
 	public StudentAppUsers loginUser(StudentAppUsers user) {
-		return userDao.loginUser(user);
+		
+		try {
+			return userDao.loginUser(user);
+		} catch (Exception e) {
+		}
+		return user;
+	}
+
+	@Override
+	public boolean checkUser(String username, String password) {
+		return (username != null && password != null) && (username.trim().length() > 0 && password.trim().length() > 0);
 	}
 
 }
